@@ -1,5 +1,7 @@
 package multierror
 
+import "fmt"
+
 // Append is a helper function that will append more errors
 // onto an Error in order to create a larger multi-error.
 //
@@ -28,6 +30,8 @@ func Append(err error, errs ...error) *Error {
 			}
 		}
 
+		// if none of the errors are non-nil
+		// return a nil value
 		if len(err.Errors) == 0 {
 			return nil
 		}
@@ -35,10 +39,19 @@ func Append(err error, errs ...error) *Error {
 		return err
 	default:
 		newErrs := make([]error, 0, len(errs)+1)
-		if err != nil {
-			newErrs = append(newErrs, err)
+		for _, e := range errs {
+			if e != nil {
+				newErrs = append(newErrs, e)
+			}
 		}
-		newErrs = append(newErrs, errs...)
+
+		// if none of the errors are non-nil
+		// return a nil value
+		if len(newErrs) == 0 {
+			err = nil
+			fmt.Println("EHRE?")
+			return nil
+		}
 
 		return Append(&Error{}, newErrs...)
 	}

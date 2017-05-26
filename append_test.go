@@ -2,6 +2,8 @@ package multierror
 
 import (
 	"errors"
+	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -63,6 +65,23 @@ func TestAppend_NilErrorIfaceArg(t *testing.T) {
 	if result != nil {
 		t.Fatalf("result is not nil: %s", result.Error())
 	}
+}
+
+func TestAppend_Nils(t *testing.T) {
+	var err error
+	var err1 error
+	// var err2 error
+	err = Append(err, err1)
+	if result != nil {
+		fmt.Println("WTF", reflect.TypeOf(err))
+	}
+	// if err != nil {
+	// 	t.Fatalf("1. result is not nil: %s", err)
+	// }
+	// err = Append(err, err2)
+	// if err != nil {
+	// 	t.Fatalf("2. result is not nil: %s", err)
+	// }
 }
 
 func TestAppend_NonError(t *testing.T) {
