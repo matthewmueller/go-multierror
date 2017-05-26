@@ -51,8 +51,8 @@ func TestAppend_NilErrorArg(t *testing.T) {
 	var err error
 	var nilErr *Error
 	result := Append(err, nilErr)
-	if len(result.Errors) != 0 {
-		t.Fatalf("wrong len: %d", len(result.Errors))
+	if result != nil {
+		t.Fatalf("result is not nil: %s", result.Error())
 	}
 }
 
@@ -60,8 +60,8 @@ func TestAppend_NilErrorIfaceArg(t *testing.T) {
 	var err error
 	var nilErr error
 	result := Append(err, nilErr)
-	if len(result.Errors) != 0 {
-		t.Fatalf("wrong len: %d", len(result.Errors))
+	if result != nil {
+		t.Fatalf("result is not nil: %s", result.Error())
 	}
 }
 

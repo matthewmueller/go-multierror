@@ -28,6 +28,10 @@ func Append(err error, errs ...error) *Error {
 			}
 		}
 
+		if len(err.Errors) == 0 {
+			return nil
+		}
+
 		return err
 	default:
 		newErrs := make([]error, 0, len(errs)+1)
